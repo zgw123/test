@@ -1,0 +1,91 @@
+package disiti;
+
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Font;
+import java.awt.Point;
+import  java.awt.event.MouseEvent;
+
+import javax.swing.JLabel;
+import javax.swing.JWindow;
+import javax.swing.event.MouseInputListener;
+
+public class GuiHelloWorld extends JWindow {
+	private static final long serialVersionUID = 1L;
+	JLabel titleLbl;
+	Font GuiHelloWorldFont;
+
+	public GuiHelloWorld() {
+		GuiHelloWorldFont = new Font("幼圆", Font.ITALIC, 28);
+		
+		this.getContentPane().setBackground(new Color(0x99FF66));
+		this.setBounds(400, 200, 200, 60);
+		this.setLayout(null);
+		
+		titleLbl = new JLabel(" Hello World!");
+		titleLbl.setFont(GuiHelloWorldFont);
+		titleLbl.setOpaque(true);
+		titleLbl.setBackground(new Color(0x66CC00));
+		titleLbl.setBounds(0, 0, 200, 60);
+		this.add(titleLbl);
+		
+		// 鼠标事件处理类
+		MouseEventListener mouseListener = new MouseEventListener(this);
+		titleLbl.addMouseListener(mouseListener);
+		titleLbl.addMouseMotionListener(mouseListener);
+		this.setVisible(true);
+	}
+
+	public static void main(String[] args) {
+		new GuiHelloWorld();
+	}
+}
+
+class MouseEventListener implements MouseInputListener {
+	Point origin; // 鼠标拖拽想要移动的目标组件
+	GuiHelloWorld frame;
+
+	public MouseEventListener(GuiHelloWorld frame) {
+		this.frame = frame;
+		origin = new Point();
+	}
+
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		origin.x = e.getX();
+		origin.y = e.getY();
+	}
+
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		this.frame.setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
+	}
+
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		this.frame.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+	}
+
+	public void mouseDragged(MouseEvent e) {
+		// TODO Auto-generated method stub
+		Point p = this.frame.getLocation();
+		this.frame.setLocation(p.x + (e.getX() - origin.x), p.y
+				+ (e.getY() - origin.y));
+	}
+
+	public void mouseMoved(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
